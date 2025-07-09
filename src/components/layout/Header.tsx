@@ -3,10 +3,12 @@ import { Menu, X, ShoppingCart, Search, User, Home, Package } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CartSidebar } from "@/components/cart/CartSidebar";
+import { useCartStore } from "@/stores/cartStore";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const cartItemsCount = 0; // This will be dynamic later
+  const cartItemsCount = useCartStore((state) => state.getTotalItems());
 
   const NavItems = () => (
     <>
@@ -58,14 +60,16 @@ export const Header = () => {
           </Button>
 
           {/* Cart */}
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="h-5 w-5" />
-            {cartItemsCount > 0 && (
-              <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-secondary text-secondary-foreground text-xs">
-                {cartItemsCount}
-              </Badge>
-            )}
-          </Button>
+          <CartSidebar>
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="h-5 w-5" />
+              {cartItemsCount > 0 && (
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-secondary text-secondary-foreground text-xs">
+                  {cartItemsCount}
+                </Badge>
+              )}
+            </Button>
+          </CartSidebar>
 
           {/* User */}
           <Button variant="ghost" size="icon">
