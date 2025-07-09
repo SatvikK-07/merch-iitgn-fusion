@@ -18,19 +18,31 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				heading: ['Montserrat', 'sans-serif'],
+				body: ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
+				background: {
+					DEFAULT: 'hsl(var(--background))',
+					secondary: 'hsl(var(--background-secondary))',
+				},
+				foreground: {
+					DEFAULT: 'hsl(var(--foreground))',
+					secondary: 'hsl(var(--foreground-secondary))',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					hover: 'hsl(var(--primary-hover))',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					hover: 'hsl(var(--secondary-hover))',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -50,7 +62,8 @@ export default {
 				},
 				card: {
 					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					foreground: 'hsl(var(--card-foreground))',
+					hover: 'hsl(var(--card-hover))',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -61,6 +74,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				iitgn: {
+					blue: 'hsl(var(--iitgn-blue))',
+					'blue-light': 'hsl(var(--iitgn-blue-light))',
+					'blue-dark': 'hsl(var(--iitgn-blue-dark))',
+					orange: 'hsl(var(--iitgn-orange))',
+					'orange-light': 'hsl(var(--iitgn-orange-light))',
+					'orange-dark': 'hsl(var(--iitgn-orange-dark))',
 				}
 			},
 			borderRadius: {
