@@ -1,7 +1,10 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="hero-section">
       {/* Gradient Overlay */}
@@ -18,7 +21,7 @@ export const Hero = () => {
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 animate-fade-in-up [animation-delay:200ms]">
-            Merch-IITGn
+            The GN Collective
           </h1>
           
           {/* Subheading */}
@@ -34,7 +37,11 @@ export const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up [animation-delay:800ms]">
-            <Button size="lg" className="cta-button text-lg px-8 py-6 rounded-xl font-semibold">
+            <Button 
+              size="lg" 
+              className="cta-button text-lg px-8 py-6 rounded-xl font-semibold"
+              onClick={() => navigate("/shop")}
+            >
               Shop Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -43,6 +50,7 @@ export const Hero = () => {
               variant="outline" 
               size="lg" 
               className="text-lg px-8 py-6 rounded-xl font-semibold bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
+              onClick={() => navigate("/shop")}
             >
               Explore Collections
             </Button>

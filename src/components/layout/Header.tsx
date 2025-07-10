@@ -1,31 +1,76 @@
 import { useState } from "react";
-import { Menu, X, ShoppingCart, Search, User, Home, Package } from "lucide-react";
+import { Menu, ShoppingCart, Search, User, Home, Package, Phone, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CartSidebar } from "@/components/cart/CartSidebar";
 import { useCartStore } from "@/stores/cartStore";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const cartItemsCount = useCartStore((state) => state.getTotalItems());
+  const navigate = useNavigate();
+
+  const handleGoogleAuth = () => {
+    // Simulate Google authentication
+    const userEmail = prompt("Enter your email for admin access:");
+    if (userEmail === "satvikkadian1@gmail.com") {
+      alert("Admin access granted!");
+      // Navigate to admin panel
+      navigate("/admin");
+    } else {
+      alert("Access denied. Only authorized users can access admin panel.");
+    }
+  };
 
   const NavItems = () => (
     <>
-      <a href="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+      <button 
+        onClick={() => navigate("/")} 
+        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium"
+      >
         <Home className="h-4 w-4" />
         Home
-      </a>
-      <a href="/shop" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+      </button>
+      <button 
+        onClick={() => navigate("/shop")} 
+        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium"
+      >
         <Package className="h-4 w-4" />
         Shop
-      </a>
-      <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">
-        About
-      </a>
-      <a href="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
-        Contact
-      </a>
+      </button>
+      <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+        <DialogTrigger asChild>
+          <button className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Phone className="h-4 w-4" />
+            Contact
+          </button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex flex-col items-center gap-4 p-6">
+            <Phone className="h-12 w-12 text-primary" />
+            <h3 className="text-lg font-semibold">Contact Information</h3>
+            <div className="space-y-2 text-center">
+              <p className="text-sm">
+                <strong>Email:</strong> satvikkadian1@gmail.com
+              </p>
+              <p className="text-sm">
+                <strong>Mobile:</strong> 7988437954
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <button 
+        onClick={handleGoogleAuth}
+        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium"
+      >
+        <Shield className="h-4 w-4" />
+        Admin
+      </button>
     </>
   );
 
@@ -41,7 +86,7 @@ export const Header = () => {
           />
           <div className="hidden sm:block">
             <h1 className="text-xl font-heading font-bold gradient-text">
-              Merch-IITGn
+              The GN Collective
             </h1>
             <p className="text-xs text-muted-foreground -mt-1">Official Merchandise</p>
           </div>
@@ -90,12 +135,13 @@ export const Header = () => {
                 </div>
                 <hr />
                 <div className="flex flex-col gap-4">
-                  <a href="/login" className="text-foreground hover:text-primary transition-colors font-medium">
-                    Login
-                  </a>
-                  <a href="/admin" className="text-foreground hover:text-primary transition-colors font-medium">
+                  <button 
+                    onClick={handleGoogleAuth}
+                    className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2"
+                  >
+                    <Shield className="h-4 w-4" />
                     Admin
-                  </a>
+                  </button>
                 </div>
               </div>
             </SheetContent>
