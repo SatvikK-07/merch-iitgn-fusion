@@ -15,12 +15,15 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const handleGoogleAuth = () => {
-    // Simulate Google authentication
     const userEmail = prompt("Enter your email for admin access:");
     if (userEmail === "satvikkadian1@gmail.com") {
-      alert("Admin access granted!");
-      // Navigate to admin panel
-      navigate("/admin");
+      const password = prompt("Enter admin password:");
+      if (password === "Satvik@962") {
+        alert("Admin access granted!");
+        navigate("/admin");
+      } else {
+        alert("Incorrect password. Access denied.");
+      }
     } else {
       alert("Access denied. Only authorized users can access admin panel.");
     }
@@ -51,6 +54,9 @@ export const Header = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <div className="flex flex-col items-center gap-4 p-6">
+            <div className="sr-only">
+              <h2>Contact Information</h2>
+            </div>
             <Phone className="h-12 w-12 text-primary" />
             <h3 className="text-lg font-semibold">Contact Information</h3>
             <div className="space-y-2 text-center">
