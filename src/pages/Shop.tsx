@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { products } from "@/data/products";
+import { useProductsStore } from "@/stores/productsStore";
 import { Product, clubs, categories } from "@/types/product";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Header } from "@/components/layout/Header";
@@ -17,6 +17,7 @@ import { Footer } from "@/components/layout/Footer";
 type SortOption = "name-asc" | "name-desc" | "price-low" | "price-high" | "rating" | "newest";
 
 export default function Shop() {
+  const products = useProductsStore((state) => state.products);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedClubs, setSelectedClubs] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);

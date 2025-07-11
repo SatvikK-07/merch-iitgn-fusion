@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCartStore } from "@/stores/cartStore";
-import { products } from "@/data/products";
+import { useProductsStore } from "@/stores/productsStore";
 import { 
   Package, 
   Users, 
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 export const AdminDashboard = () => {
+  const products = useProductsStore((state) => state.products);
   const cartItems = useCartStore((state) => state.items);
   
   // Mock data - in real app this would come from backend
@@ -56,110 +57,43 @@ export const AdminDashboard = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">In Stock</CardTitle>
+            <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalUsers}</div>
-            <p className="text-xs text-muted-foreground">Registered customers</p>
+            <div className="text-2xl font-bold">{products.filter(p => p.stock > 0).length}</div>
+            <p className="text-xs text-muted-foreground">Products available</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
+            <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalOrders}</div>
-            <p className="text-xs text-muted-foreground">Orders processed</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹{stats.totalRevenue.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">+12% from last month</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Rating</CardTitle>
-            <Star className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.averageRating}/5</div>
-            <p className="text-xs text-muted-foreground">Customer satisfaction</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Growth Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+23%</div>
-            <p className="text-xs text-muted-foreground">Monthly growth</p>
+            <div className="text-2xl font-bold">{products.filter(p => p.stock < 10 && p.stock > 0).length}</div>
+            <p className="text-xs text-orange-600">Need restocking</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Sales */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentSales.map((sale) => (
-                <div key={sale.id} className="flex items-center justify-between p-3 border rounded-lg">
-                  <div>
-                    <p className="font-medium">{sale.product}</p>
-                    <p className="text-sm text-muted-foreground">{sale.user} • {sale.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold">₹{sale.amount}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Top Products */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Top Selling Products</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {topProducts.map((product, index) => (
-                <div key={product.name} className="flex items-center justify-between p-3 border rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <p className="font-medium">{product.name}</p>
-                      <p className="text-sm text-muted-foreground">{product.sales} sales</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold">₹{product.revenue.toLocaleString()}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <p className="text-muted-foreground mb-4">
+              Revenue tracking, user management, and sales analytics will be available once customers start making purchases.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Add products and start building your store inventory!
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -11,10 +11,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { products } from "@/data/products";
+import { useProductsStore } from "@/stores/productsStore";
+import { useToast } from "@/hooks/use-toast";
 import { Search, Edit, Trash2, Eye, Star } from "lucide-react";
 
 export const AdminProducts = () => {
+  const { toast } = useToast();
+  const products = useProductsStore((state) => state.products);
+  const deleteProduct = useProductsStore((state) => state.deleteProduct);
   const [searchTerm, setSearchTerm] = useState("");
   
   const filteredProducts = products.filter(product =>
@@ -118,13 +122,22 @@ export const AdminProducts = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={() => window.open(`/product/${product.id}`, '_blank')}>
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={() => toast({ title: "Edit feature", description: "Edit functionality coming soon" })}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            onClick={() => {
+                              if (confirm(`Are you sure you want to delete ${product.name}?`)) {
+                                deleteProduct(product.id);
+                                toast({ title: "Product deleted", description: `${product.name} has been removed` });
+                              }
+                            }}
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>

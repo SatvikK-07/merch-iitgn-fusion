@@ -20,7 +20,7 @@ export const Header = () => {
       const password = prompt("Enter admin password:");
       if (password === "Satvik@962") {
         alert("Admin access granted!");
-        navigate("/admin");
+        window.open("/admin", "_blank");
       } else {
         alert("Incorrect password. Access denied.");
       }
@@ -105,10 +105,6 @@ export const Header = () => {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-3">
-          {/* Search */}
-          <Button variant="ghost" size="icon" className="hidden sm:flex">
-            <Search className="h-5 w-5" />
-          </Button>
 
           {/* Cart */}
           <CartSidebar>

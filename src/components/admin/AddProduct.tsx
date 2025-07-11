@@ -9,10 +9,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { clubs, categories, allSizes, allColors } from "@/types/product";
+import { useProductsStore } from "@/stores/productsStore";
 import { Upload, X, Plus } from "lucide-react";
 
 export const AddProduct = () => {
   const { toast } = useToast();
+  const addProduct = useProductsStore((state) => state.addProduct);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -122,11 +124,11 @@ export const AddProduct = () => {
       care: formData.care ? formData.care.split(',').map(c => c.trim()) : undefined,
     };
 
-    console.log("New Product:", newProduct);
+    addProduct(newProduct);
     
     toast({
       title: "Success!",
-      description: "Product has been added successfully",
+      description: "Product has been added successfully and will appear in the shop",
     });
 
     // Reset form
