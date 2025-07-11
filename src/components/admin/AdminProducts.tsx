@@ -14,12 +14,14 @@ import {
 import { useProductsStore } from "@/stores/productsStore";
 import { useToast } from "@/hooks/use-toast";
 import { Search, Edit, Trash2, Eye, Star } from "lucide-react";
+import { AddProduct } from "./AddProduct";
 
 export const AdminProducts = () => {
   const { toast } = useToast();
   const products = useProductsStore((state) => state.products);
   const deleteProduct = useProductsStore((state) => state.deleteProduct);
   const [searchTerm, setSearchTerm] = useState("");
+  const [editingProduct, setEditingProduct] = useState(null);
   
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -125,7 +127,7 @@ export const AdminProducts = () => {
                           <Button variant="ghost" size="sm" onClick={() => window.open(`/product/${product.id}`, '_blank')}>
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" onClick={() => toast({ title: "Edit feature", description: "Edit functionality coming soon" })}>
+                          <Button variant="ghost" size="sm" onClick={() => setEditingProduct(product)}>
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button 
@@ -184,6 +186,14 @@ export const AdminProducts = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Edit Product Modal */}
+      {editingProduct && (
+        <AddProduct 
+          editingProduct={editingProduct} 
+          onClose={() => setEditingProduct(null)} 
+        />
+      )}
     </div>
   );
 };

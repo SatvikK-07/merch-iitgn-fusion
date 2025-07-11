@@ -7,14 +7,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { clubs, categories, allSizes, allColors } from "@/types/product";
+import { clubs, categories, allSizes, allColors, Product } from "@/types/product";
 import { useProductsStore } from "@/stores/productsStore";
 import { Upload, X, Plus } from "lucide-react";
 
-export const AddProduct = () => {
+interface AddProductProps {
+  editingProduct?: Product;
+  onClose?: () => void;
+}
+
+export const AddProduct = ({ editingProduct, onClose }: AddProductProps) => {
   const { toast } = useToast();
   const addProduct = useProductsStore((state) => state.addProduct);
+  const updateProduct = useProductsStore((state) => state.updateProduct);
+  const isEditMode = !!editingProduct;
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -149,11 +157,11 @@ export const AddProduct = () => {
     setSelectedColors([]);
   };
 
-  return (
+  const content = (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Add New Product</CardTitle>
+          <CardTitle>{isEditMode ? 'Edit Product' : 'Add New Product'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -388,4 +396,19 @@ export const AddProduct = () => {
       </Card>
     </div>
   );
+
+  if (isEditMode) {
+    return (
+      <Dialog open={true} onOpenChange={onClose}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+          </DialogHeader>
+          {content}
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  return content;
 };

@@ -13,7 +13,7 @@ interface CartSidebarProps {
 }
 
 export const CartSidebar = ({ children }: CartSidebarProps) => {
-  const { items, isOpen, setIsOpen, updateQuantity, removeItem, getTotalItems, getTotalPrice } = useCartStore();
+  const { items, isOpen, setIsOpen, updateQuantity, removeItem, getTotalItems, getTotalPrice, checkout } = useCartStore();
 
   const subtotal = getTotalPrice();
   const delivery = 0; // Free delivery
@@ -144,12 +144,16 @@ export const CartSidebar = ({ children }: CartSidebarProps) => {
             </div>
 
             <div className="space-y-3">
-              <Link to="/checkout">
-                <Button className="w-full cta-button text-lg py-6" onClick={() => setIsOpen(false)}>
-                  Checkout
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                className="w-full cta-button text-lg py-6" 
+                onClick={() => {
+                  checkout();
+                  setIsOpen(false);
+                }}
+              >
+                Checkout
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               
               <Link to="/shop">
                 <Button variant="outline" className="w-full" onClick={() => setIsOpen(false)}>

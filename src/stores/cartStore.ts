@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { CartItem, Product } from '@/types/product';
 import { toast } from '@/hooks/use-toast';
+import { useProductsStore } from './productsStore';
 
 interface CartStore {
   items: CartItem[];
@@ -12,6 +13,7 @@ interface CartStore {
   getTotalItems: () => number;
   getTotalPrice: () => number;
   setIsOpen: (open: boolean) => void;
+  checkout: () => void;
 }
 
 export const useCartStore = create<CartStore>()((set, get) => ({
@@ -104,5 +106,33 @@ export const useCartStore = create<CartStore>()((set, get) => ({
       },
 
       setIsOpen: (open) => set({ isOpen: open }),
+
+      checkout: () => {
+        const { items } = get();
+        
+        // For each item, add a rating for the product
+        items.forEach(item => {
+          const rating = Math.floor(Math.random() * 5) + 1; // Random rating 1-5 for demo
+          const { getProduct, updateProduct } = useProductsStore.getState();
+          const product = getProduct(item.product.id);
+          
+          if (product) {
+            const newReviews = product.reviews + 1;
+            const newRating = ((product.rating * product.reviews) + rating) / newReviews;
+            
+            updateProduct(item.product.id, {
+              rating: Math.round(newRating * 10) / 10,
+              reviews: newReviews
+            });
+          }
+        });
+
+        get().clearCart();
+        
+        toast({
+          title: "Order placed successfully!",
+          description: "Thank you for your purchase. Please rate your experience.",
+        });
+      },
     })
   );

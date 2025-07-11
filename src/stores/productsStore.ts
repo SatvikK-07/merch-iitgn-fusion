@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { Product } from '@/types/product';
 import { products as initialProducts } from '@/data/products';
 
@@ -10,7 +11,9 @@ interface ProductsStore {
   getProduct: (id: string) => Product | undefined;
 }
 
-export const useProductsStore = create<ProductsStore>()((set, get) => ({
+export const useProductsStore = create<ProductsStore>()(
+  persist(
+    (set, get) => ({
   products: initialProducts,
 
   addProduct: (product) => {
@@ -36,4 +39,8 @@ export const useProductsStore = create<ProductsStore>()((set, get) => ({
   getProduct: (id) => {
     return get().products.find(product => product.id === id);
   },
-}));
+}),
+{
+  name: 'products-storage',
+}
+));
