@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CartSidebar } from "@/components/cart/CartSidebar";
 import { useCartStore } from "@/stores/cartStore";
 import { useNavigate } from "react-router-dom";
+import logoImage from "@/assets/logo.png";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -86,8 +87,8 @@ export const Header = () => {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <img 
-            src="https://iitgn.ac.in/sites/default/files/2023-06/IITGN%20Logo.png" 
-            alt="IIT Gandhinagar" 
+            src={logoImage}
+            alt="The GN Collective" 
             className="h-10 w-auto"
           />
           <div className="hidden sm:block">

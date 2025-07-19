@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { products } from "@/data/products";
+import { useProductsStore } from "@/stores/productsStore";
 import { useCartStore } from "@/stores/cartStore";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -27,6 +27,7 @@ const getBadgeColor = (badge: string) => {
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const products = useProductsStore((state) => state.products);
   const product = products.find(p => p.id === id);
   
   const [selectedSize, setSelectedSize] = useState("");
@@ -69,6 +70,7 @@ export default function ProductDetail() {
   const images = product.images || [product.image];
   const relatedProducts = products.filter(p => 
     p.id !== product.id && 
+    p.inStock &&
     (p.club === product.club || p.category === product.category)
   ).slice(0, 4);
 
