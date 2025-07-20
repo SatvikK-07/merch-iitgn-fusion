@@ -43,7 +43,7 @@ const RatingSystem: React.FC<RatingSystemProps> = ({
         .from('product_ratings')
         .select(`
           *,
-          profiles!inner (
+          profiles (
             full_name
           )
         `)
@@ -52,7 +52,14 @@ const RatingSystem: React.FC<RatingSystemProps> = ({
 
       if (error) throw error;
 
-      setRatings(data || []);
+      const formattedRatings: Rating[] = data?.map(rating => ({
+        ...rating,
+        profiles: Array.isArray(rating.profiles) && rating.profiles.length > 0 
+          ? rating.profiles[0] 
+          : { full_name: 'Anonymous' }
+      })) || [];
+
+      setRatings(formattedRatings);
 
       // Check if current user has rated this product
       if (user) {

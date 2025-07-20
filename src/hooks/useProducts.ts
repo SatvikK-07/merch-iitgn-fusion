@@ -32,7 +32,9 @@ export const useProducts = () => {
         rating: parseFloat(item.rating?.toString() || '0'),
         reviews: item.rating_count || 0,
         sizes: ['S', 'M', 'L', 'XL'],
-        colors: ['Black', 'White', 'Navy']
+        colors: ['Black', 'White', 'Navy'],
+        isNew: false,
+        inStock: item.stock > 0
       }));
 
       setProducts(formattedProducts);
