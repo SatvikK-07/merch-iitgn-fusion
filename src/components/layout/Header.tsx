@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Menu, ShoppingCart, Search, User, Home, Package, Phone, Shield } from "lucide-react";
+import { Menu, ShoppingCart, User, Home, Package, Phone, Shield, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { CartSidebar } from "@/components/cart/CartSidebar";
 import { useCartStore } from "@/stores/cartStore";
+import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
 
@@ -13,6 +15,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const cartItemsCount = useCartStore((state) => state.getTotalItems());
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleAuth = () => {
@@ -119,10 +122,29 @@ export const Header = () => {
             </Button>
           </CartSidebar>
 
-          {/* User */}
-          <Button variant="ghost" size="icon">
-            <User className="h-5 w-5" />
-          </Button>
+          {/* User Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={() => navigate('/profile')}>
+                <User className="h-4 w-4 mr-2" />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/orders')}>
+                <Package className="h-4 w-4 mr-2" />
+                My Orders
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={signOut} className="text-red-600">
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>

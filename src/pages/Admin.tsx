@@ -21,7 +21,7 @@ const Admin = () => {
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "products", label: "Products", icon: Package },
     { id: "add-product", label: "Add Product", icon: Plus },
-    { id: "users", label: "Users", icon: Users },
+    
   ];
 
   const renderContent = () => {
@@ -32,8 +32,6 @@ const Admin = () => {
         return <AdminProducts />;
       case "add-product":
         return <AddProduct />;
-      case "users":
-        return <AdminUsers />;
       default:
         return <AdminDashboard />;
     }

@@ -1,7 +1,8 @@
-import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, Heart } from "lucide-react";
+import { Mail, Phone, MapPin, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import logoImage from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
@@ -36,12 +37,12 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img 
-                src="https://iitgn.ac.in/sites/default/files/2023-06/IITGN%20Logo.png" 
-                alt="IIT Gandhinagar" 
+                src={logoImage}
+                alt="The GN Collective" 
                 className="h-12 w-auto brightness-0 invert"
               />
               <div>
-                <h3 className="text-xl font-heading font-bold">Merch-IITGn</h3>
+                <h3 className="text-xl font-heading font-bold">The GN Collective</h3>
                 <p className="text-sm text-primary-foreground/80">Official Store</p>
               </div>
             </div>
@@ -49,28 +50,17 @@ export const Footer = () => {
               Your one-stop destination for official IIT Gandhinagar merchandise. 
               Representing the spirit of innovation, culture, and excellence.
             </p>
-            <div className="flex gap-3">
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10">
-                <Instagram className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10">
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10">
-                <Twitter className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className="font-heading font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Home</a></li>
-              <li><a href="/shop" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Shop All</a></li>
-              <li><a href="/collections" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Collections</a></li>
-              <li><a href="/about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">About Us</a></li>
-              <li><a href="/contact" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Contact</a></li>
+              <li><span className="text-primary-foreground/80">Home</span></li>
+              <li><span className="text-primary-foreground/80">Shop All</span></li>
+              <li><span className="text-primary-foreground/80">Collections</span></li>
+              <li><span className="text-primary-foreground/80">About Us</span></li>
+              <li><span className="text-primary-foreground/80">Contact</span></li>
             </ul>
           </div>
 
@@ -78,11 +68,11 @@ export const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold mb-4">Collections</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="/collections/blithchron" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Blithchron'25</a></li>
-              <li><a href="/collections/amalthea" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Amalthea'24</a></li>
-              <li><a href="/collections/hallabol" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Hallabol</a></li>
-              <li><a href="/collections/tedx" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">TEDxIITGN</a></li>
-              <li><a href="/collections/official" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">IITGN Official</a></li>
+              <li><span className="text-primary-foreground/80">Blithchron'25</span></li>
+              <li><span className="text-primary-foreground/80">Amalthea'24</span></li>
+              <li><span className="text-primary-foreground/80">Hallabol</span></li>
+              <li><span className="text-primary-foreground/80">TEDxIITGN</span></li>
+              <li><span className="text-primary-foreground/80">IITGN Official</span></li>
             </ul>
           </div>
 
@@ -99,11 +89,11 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80">merch@iitgn.ac.in</span>
+                <span className="text-primary-foreground/80">satvikkadian1@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80">+91 79 2432 5001</span>
+                <span className="text-primary-foreground/80">+91 7988437954</span>
               </div>
             </div>
           </div>
@@ -122,14 +112,13 @@ export const Footer = () => {
           </div>
           
           <div className="flex flex-wrap gap-6">
-            <a href="/privacy" className="hover:text-primary-foreground transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-primary-foreground transition-colors">Terms of Service</a>
-            <a href="/returns" className="hover:text-primary-foreground transition-colors">Return Policy</a>
-            <a href="/admin" className="hover:text-primary-foreground transition-colors">Admin</a>
+            <span className="text-primary-foreground/80">Privacy Policy</span>
+            <span className="text-primary-foreground/80">Terms of Service</span>
+            <span className="text-primary-foreground/80">Return Policy</span>
           </div>
           
           <div>
-            <span>© 2025 Merch-IITGn. All rights reserved.</span>
+            <span>© 2025 The GN Collective. All rights reserved.</span>
           </div>
         </div>
       </div>
