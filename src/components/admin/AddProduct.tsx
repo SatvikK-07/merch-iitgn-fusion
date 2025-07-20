@@ -110,7 +110,7 @@ export const AddProduct = ({ editingProduct, onClose }: AddProductProps) => {
     }
 
     // In a real app, this would make an API call to add the product
-    const newProduct: Product = {
+    const newProduct = {
       id: `product-${Date.now()}`,
       name: formData.name,
       price: parseInt(formData.price),
@@ -119,7 +119,6 @@ export const AddProduct = ({ editingProduct, onClose }: AddProductProps) => {
       images: formData.images.length > 0 ? formData.images : undefined,
       club: formData.club,
       category: formData.category,
-      type: "Apparel",
       description: formData.description,
       rating: 0, // Will be updated by user reviews
       reviews: 0,

@@ -5,10 +5,8 @@ export interface Product {
   originalPrice?: number;
   image: string;
   images?: string[];
-  club?: string;
+  club: string;
   category: string;
-  type: string;
-  event?: string;
   description: string;
   rating: number;
   reviews: number;
